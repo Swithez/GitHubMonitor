@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>История запросов</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; padding: 20px; }
+        .container { background-color: #fff; border-radius: 10px; padding: 20px; margin-top: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #007bff; margin-bottom: 30px; }
+        .table-responsive { margin-top: 20px; }
+        .btn-back { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn btn-outline-secondary btn-back">← Назад на главную</a>
+        
+        <h1>📜 История запросов GitHub Stats</h1>
+        
+        {% if statistics %}
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Владелец/Репозиторий</th>
+                            <th>Коммитов</th>
+                            <th>Участников</th>
+                            <th>Ср. коммитов/день</th>
+                            <th>Период (дней)</th>
+                            <th>Дата запроса</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in statistics %}
+                        <tr>
+                            <td><a href="/repo/{{ row[1] }}/{{ row[2] }}">{{ row[1] }}/{{ row[2] }}</a></td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] }}</td>
+                            <td>{{ row[5] | round(2) }}</td>
+                            <td>{{ row[6] }}</td>
+                            <td>{{ row[7] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="alert alert-info">История запросов пуста.</p>
+        {% endif %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
